@@ -17,7 +17,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { observable } from "mobx";
 import { observer } from "mobx-react-lite";
-import review from "../store/review";
+import Review from "../store/Review";
 
 const Aside = observer(() => {
     const dima = "&filters[$and][0][executor][$containsi]=Дмитрий";
@@ -32,7 +32,7 @@ const Aside = observer(() => {
             <List className=" flex flex-col">
                 <ListItem
                     onClick={() => {
-                        review.userApi("все");
+                        Review.userApi("все");
                     }}
                 >
                     <ListItemPrefix>
@@ -42,7 +42,7 @@ const Aside = observer(() => {
                 </ListItem>
                 <ListItem
                     onClick={() => {
-                        review.userApi("Вадим");
+                        Review.userApi("Вадим");
                     }}
                 >
                     <ListItemPrefix>
@@ -52,7 +52,7 @@ const Aside = observer(() => {
                 </ListItem>
                 <ListItem
                     onClick={() => {
-                        review.userApi("Дмитрий");
+                        Review.userApi("Дмитрий");
                     }}
                 >
                     <ListItemPrefix>

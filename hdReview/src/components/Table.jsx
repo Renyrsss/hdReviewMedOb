@@ -22,7 +22,7 @@ import axios from "axios";
 import { Modal } from "./Modal";
 import { useEffect, useState } from "react";
 import { observable } from "mobx";
-import review from "../store/review";
+import Review from "../store/Review";
 import { observer } from "mobx-react-lite";
 import {
     differenceInBusinessDays,
@@ -141,14 +141,14 @@ const Table = observer(() => {
         });
     };
     const fetchDataForMonth = async (startOfMonth, endOfMonth) => {
-        review.url = `http://192.168.101.25:1338/api/zayavkis?pagination[pageSize]=10000&sort=id:DESC&filters[$and][0][createdAt][$gt]=${startOfMonth}&filters[$and][1][Progress][$eq]=%D0%A1%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BE&filters[$and][0][createdAt][$lt]=${endOfMonth}`;
+        Review.url = `http://192.168.101.25:1338/api/zayavkis?pagination[pageSize]=10000&sort=id:DESC&filters[$and][0][createdAt][$gt]=${startOfMonth}&filters[$and][1][Progress][$eq]=%D0%A1%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BE&filters[$and][0][createdAt][$lt]=${endOfMonth}`;
     };
 
     function setUser(userName, userFunc) {
         userFunc(userName);
     }
 
-    const currentUrl = review.url;
+    const currentUrl = Review.url;
     useEffect(() => {
         let data = axios
             .get(currentUrl)
@@ -174,7 +174,7 @@ const Table = observer(() => {
                     ]);
                 }
             });
-    }, [review.url]);
+    }, [Review.url]);
 
     function getFullHours(hoursServer) {
         const res = [
