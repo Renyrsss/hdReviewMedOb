@@ -22,12 +22,11 @@ const isLeapYear = (year) => {
 
 import React, { useState } from "react";
 import "./btn.css";
-import Review from "../store/review";
+import Review from "../store/Review";
 const MonthButtons = ({ onMonthChange }) => {
     const currentYear = new Date().getFullYear();
     const [selectedMonth, setSelectedMonth] = useState(null);
 
-    // Если год високосный, увеличиваем количество дней в феврале
     if (isLeapYear(currentYear)) {
         months[1].days = 29;
     }
