@@ -44,6 +44,64 @@ const TABLE_HEAD = [
 ];
 
 const calculateWorkingTime = (createdAt, closedAt) => {
+    // const startDay = new Date(createdAt);
+    // const endDay = new Date(closedAt);
+
+    // const workStartHour = 8;
+    // const workEndHour = 17;
+
+    // // Если дата закрытия раньше даты открытия, возвращаем 0
+    // if (endDay <= startDay) return "0 дней 0 часов 0 минут";
+
+    // // Приводим даты к рамкам рабочего времени
+    // let actualStart = new Date(startDay);
+    // let actualEnd = new Date(endDay);
+
+    // // Корректируем начало рабочего дня
+    // if (actualStart.getHours() < workStartHour) {
+    //     actualStart = setHours(actualStart, workStartHour);
+    //     actualStart = setMinutes(actualStart, 0);
+    //     actualStart = setSeconds(actualStart, 0);
+    // }
+    // if (actualEnd.getHours() > workEndHour) {
+    //     actualEnd = setHours(actualEnd, workEndHour);
+    //     actualEnd = setMinutes(actualEnd, 0);
+    //     actualEnd = setSeconds(actualEnd, 0);
+    // }
+
+    // // Исключаем выходные
+    // if (isWeekend(actualStart)) actualStart = addDays(actualStart, 1);
+    // if (isWeekend(actualEnd)) actualEnd = addDays(actualEnd, -1);
+
+    // // Количество рабочих дней между датами
+    // const businessDays = differenceInBusinessDays(actualEnd, actualStart);
+
+    // // Рассчитываем полные дни в рабочих часах (если больше одного дня)
+    // const totalFullHours = businessDays * (workEndHour - workStartHour);
+
+    // // Рассчитываем часы для первого дня (включая минуты)
+    // let startDayHours = 0;
+    // if (actualStart.getHours() < workEndHour) {
+    //     startDayHours = workEndHour - actualStart.getHours();
+    //     startDayHours -= actualStart.getMinutes() / 60; // Учитываем минуты
+    // }
+
+    // // Рассчитываем часы для последнего дня (включая минуты)
+    // let endDayHours = 0;
+    // if (actualEnd.getHours() > workStartHour) {
+    //     endDayHours = actualEnd.getHours() - workStartHour;
+    //     endDayHours += actualEnd.getMinutes() / 60; // Учитываем минуты
+    // }
+
+    // // Общее количество рабочих часов
+    // const totalHours = totalFullHours + startDayHours + endDayHours;
+
+    // // Преобразуем рабочие часы в дни, часы и минуты
+    // const days = Math.floor(totalHours / (workEndHour - workStartHour));
+    // const remainingHours = totalHours % (workEndHour - workStartHour);
+    // const hours = Math.floor(remainingHours);
+    // const minutes = Math.round((remainingHours - hours) * 60); // Теперь учитываем оставшиеся минуты
+
     // return `${days} дней ${hours} часов ${minutes} минут`;
     const startDay = new Date(createdAt);
     const endDay = new Date(closedAt);
@@ -84,7 +142,9 @@ const Table = observer(() => {
         });
     };
     const fetchDataForMonth = async (startOfMonth, endOfMonth) => {
-        Review.url = `http://192.168.101.25:1338/api/zayavkis?sort=id:DESC&filters[$and][0][createdAt][$gt]=${startOfMonth}&filters[$and][1][Progress][$eq]=%D0%A1%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BE&filters[$and][0][createdAt][$lt]=${endOfMonth}&pagination[pageSize]=15`;
+        console.log(endOfMonth);
+
+        Review.url = `http://192.168.101.25:1337/api/saids?sort=id:DESC&filters[$and][0][createdAt][$gt]=${startOfMonth}&filters[$and][1][Progress][$eq]=%D0%A1%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BE&filters[$and][0][createdAt][$lt]=${endOfMonth}`;
     };
 
     function setUser(userName, userFunc) {
@@ -200,9 +260,8 @@ const Table = observer(() => {
 
         setOpen(status);
     }
-    const handleExport = () => {
-        Review.fetchAllDataForExport(); // Вызываем метод для экспорта данных
-    };
+
+    console.log(pagination);
 
     return (
         <Card className="h-full w-full">
@@ -228,7 +287,7 @@ const Table = observer(() => {
                         <Button
                             className="flex items-center gap-3"
                             size="sm"
-                            onClick={handleExport}
+                            onClick={exportToExcel}
                         >
                             <ArrowDownTrayIcon
                                 strokeWidth={2}
@@ -348,20 +407,6 @@ const Table = observer(() => {
                                                     createdAt,
                                                     updatedAt
                                                 )}
-                                                color={
-                                                    Progress === "Сделано"
-                                                        ? "green"
-                                                        : Progress ===
-                                                          "в работе"
-                                                        ? "amber"
-                                                        : "red"
-                                                }
-                                            />
-                                            <Chip
-                                                size="sm"
-                                                className="doneSize doneName"
-                                                variant="ghost"
-                                                value={executor}
                                                 color={
                                                     Progress === "Сделано"
                                                         ? "green"

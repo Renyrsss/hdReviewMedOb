@@ -1,5 +1,3 @@
-import { observer } from "mobx-react-lite";
-
 const months = [
     { name: "Январь", days: 31 },
     { name: "Февраль", days: 28 }, // 29 в високосный год
@@ -22,7 +20,6 @@ const isLeapYear = (year) => {
 
 import React, { useState } from "react";
 import "./btn.css";
-import Review from "../store/review";
 const MonthButtons = ({ onMonthChange }) => {
     const currentYear = new Date().getFullYear();
     const [selectedMonth, setSelectedMonth] = useState(null);
@@ -42,7 +39,7 @@ const MonthButtons = ({ onMonthChange }) => {
             59,
             59
         ).toISOString();
-        Review.changeStyleBtn(true);
+
         setSelectedMonth(index);
         onMonthChange(startOfMonth, endOfMonth); // Передаем даты в родительский компонент
     };
@@ -55,11 +52,8 @@ const MonthButtons = ({ onMonthChange }) => {
                     className="btn"
                     onClick={() => handleMonthClick(index)}
                     style={{
-                        backgroundColor: Review.styleBtn
-                            ? selectedMonth === index
-                                ? "lightblue"
-                                : "white"
-                            : "",
+                        backgroundColor:
+                            selectedMonth === index ? "lightblue" : "white",
                     }}
                 >
                     {month.name}
