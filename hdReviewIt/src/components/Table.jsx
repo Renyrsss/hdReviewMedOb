@@ -141,10 +141,27 @@ const Table = observer(() => {
             }
         });
     };
-    const fetchDataForMonth = async (startOfMonth, endOfMonth) => {
-        console.log(endOfMonth);
+    // const fetchDataForMonth = async (startOfMonth, endOfMonth) => {
+    //     console.log(endOfMonth);
+    //     Review.url += `&filters[$and][0][createdAt][$gt]=${startOfMonth}&filters[$and][0][createdAt][$lt]=${endOfMonth}`;
 
-        Review.url = `http://192.168.101.25:1337/api/saids?sort=id:DESC&filters[$and][0][createdAt][$gt]=${startOfMonth}&filters[$and][1][Progress][$eq]=%D0%A1%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BE&filters[$and][0][createdAt][$lt]=${endOfMonth}`;
+    //     // Review.url = `http://192.168.101.25:1337/api/saids?sort=id:DESC&filters[$and][0][createdAt][$gt]=${startOfMonth}&filters[$and][1][Progress][$eq]=%D0%A1%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BE&filters[$and][0][createdAt][$lt]=${endOfMonth}`;
+    // };
+    const fetchDataForMonth = async (startOfMonth, endOfMonth) => {
+        // Определяем фильтры
+        const filterStart = `filters[$and][0][createdAt][$gt]=${startOfMonth}`;
+        const filterEnd = `filters[$and][0][createdAt][$lt]=${endOfMonth}`;
+
+        // Удаляем предыдущие фильтры createdAt
+        Review.url = Review.url.replace(
+            /filters\[\$and\]\[0\]\[createdAt\]\[\$gt\]=[^&]*&filters\[\$and\]\[0\]\[createdAt\]\[\$lt\]=[^&]*/,
+            ""
+        );
+
+        // Теперь добавляем новые фильтры
+        Review.url += `&${filterStart}&${filterEnd}`;
+
+        console.log(Review.url);
     };
 
     function setUser(userName, userFunc) {
@@ -213,7 +230,7 @@ const Table = observer(() => {
             const itemUpdateHours = getFullHours(item.attributes.updatedAt);
             const dateOfExcelCreate = getFullDate(item.attributes.createdAt);
             const dateOfExcelUpdate = getFullDate(item.attributes.updatedAt);
-            console.log(itemUpdateHours);
+            console.log(item);
 
             const itemDete = getFullHours(item.attributes.createdAt);
             return {
@@ -260,7 +277,9 @@ const Table = observer(() => {
 
         setOpen(status);
     }
-
+    const handleExport = () => {
+        Review.fetchAllDataForExport(); // Вызываем метод для экспорта данных
+    };
     console.log(pagination);
 
     return (
@@ -287,7 +306,7 @@ const Table = observer(() => {
                         <Button
                             className="flex items-center gap-3"
                             size="sm"
-                            onClick={exportToExcel}
+                            onClick={handleExport}
                         >
                             <ArrowDownTrayIcon
                                 strokeWidth={2}
@@ -336,8 +355,8 @@ const Table = observer(() => {
                                 executor,
                                 createdAt,
                                 updatedAt,
+                                updatedBy,
                             } = item.attributes;
-
                             const classes = isLast
                                 ? "p-4"
                                 : "p-4 border-b border-blue-gray-50";
@@ -416,6 +435,24 @@ const Table = observer(() => {
                                                         : "red"
                                                 }
                                             />
+                                            <Chip
+                                                size="sm"
+                                                className="doneSize"
+                                                variant="ghost"
+                                                value={
+                                                    item.attributes.updatedBy
+                                                        .data.attributes
+                                                        .firstname
+                                                }
+                                                color={
+                                                    Progress === "Сделано"
+                                                        ? "green"
+                                                        : Progress ===
+                                                          "в работе"
+                                                        ? "amber"
+                                                        : "red"
+                                                }
+                                            />
                                         </div>
                                     </td>
                                 </tr>
@@ -426,9 +463,9 @@ const Table = observer(() => {
             </CardBody>
 
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-                <Button variant="outlined" size="sm">
+                {/* <Button variant="outlined" size="sm">
                     Previous
-                </Button>
+                </Button> */}
                 <div className="flex items-center gap-2">
                     <Pagination
                         pageCount={pagination.pageCount}
@@ -437,9 +474,9 @@ const Table = observer(() => {
                     />
                 </div>
 
-                <Button variant="outlined" size="sm">
+                {/* <Button variant="outlined" size="sm">
                     Next
-                </Button>
+                </Button> */}
             </CardFooter>
             <Modal
                 userData={userData}

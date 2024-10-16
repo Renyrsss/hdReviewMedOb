@@ -21,9 +21,13 @@ const user = {
         "https://cdn.icon-icons.com/icons2/603/PNG/512/face_human_blank_user_avatar_mannequin_dummy_icon-icons.com_55975.png",
 };
 const navigation = [
-    { name: "It отдел", href: "#", current: false },
-    { name: "Хос служба", href: "#", current: false },
-    { name: "Мед оборудование", href: "#", current: true },
+    { name: "It отдел", href: "http://192.168.101.25:1112/", current: false },
+    { name: "Хоз служба", href: "#", current: false },
+    {
+        name: "Мед оборудование",
+        href: "http://192.168.101.25:1111/",
+        current: true,
+    },
 ];
 const userNavigation = [
     { name: "Профиль (Временно недоступно)", href: "#" },

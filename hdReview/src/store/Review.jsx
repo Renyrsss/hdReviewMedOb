@@ -128,7 +128,7 @@ class Review {
     exportToExcel() {
         const transformedData = this.data.map((item) => ({
             ticket: item.id,
-            Испольнитель: item.attributes.executor,
+            Исполнитель: item.attributes.executor,
             "Имя пользователя": item.attributes.userName,
             "Номер пользователя": item.attributes.userPhone,
             Отдел: item.attributes.userSide,

@@ -20,6 +20,7 @@ const isLeapYear = (year) => {
 
 import React, { useState } from "react";
 import "./btn.css";
+import Review from "../store/Review";
 const MonthButtons = ({ onMonthChange }) => {
     const currentYear = new Date().getFullYear();
     const [selectedMonth, setSelectedMonth] = useState(null);
@@ -30,6 +31,7 @@ const MonthButtons = ({ onMonthChange }) => {
     }
 
     const handleMonthClick = (index) => {
+        Review.resetBtnFunc(true);
         const startOfMonth = new Date(currentYear, index, 1).toISOString();
         const endOfMonth = new Date(
             currentYear,
@@ -52,8 +54,11 @@ const MonthButtons = ({ onMonthChange }) => {
                     className="btn"
                     onClick={() => handleMonthClick(index)}
                     style={{
-                        backgroundColor:
-                            selectedMonth === index ? "lightblue" : "white",
+                        backgroundColor: Review.resetBtn
+                            ? selectedMonth === index
+                                ? "lightblue"
+                                : "white"
+                            : "",
                     }}
                 >
                     {month.name}
