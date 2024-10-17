@@ -31,7 +31,7 @@ const MonthButtons = ({ onMonthChange }) => {
         months[1].days = 29;
     }
 
-    const handleMonthClick = (index) => {
+    const handleMonthClick = (index, month) => {
         const startOfMonth = new Date(currentYear, index, 1).toISOString();
         const endOfMonth = new Date(
             currentYear,
@@ -41,6 +41,7 @@ const MonthButtons = ({ onMonthChange }) => {
             59,
             59
         ).toISOString();
+        Review.chnageMonthSelectedOrNot(month.name);
         Review.changeStyleBtn(true);
         setSelectedMonth(index);
         onMonthChange(startOfMonth, endOfMonth); // Передаем даты в родительский компонент
@@ -52,7 +53,7 @@ const MonthButtons = ({ onMonthChange }) => {
                 <button
                     key={index}
                     className="btn"
-                    onClick={() => handleMonthClick(index)}
+                    onClick={() => handleMonthClick(index, month)}
                     style={{
                         backgroundColor: Review.styleBtn
                             ? selectedMonth === index

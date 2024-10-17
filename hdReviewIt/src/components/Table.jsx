@@ -288,7 +288,7 @@ const Table = observer(() => {
                 <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
                     <div>
                         <Typography variant="h5" color="blue-gray">
-                            Отчет за месяц
+                            Отчет за {Review.monthSelectedOrNot}
                         </Typography>
                         <Typography color="gray" className="mt-1 font-normal">
                             всего выполено - {pagination.total} шт

@@ -10,6 +10,7 @@ class Review {
     vadim = "";
     currentPage = 1; // начальная страница
     styleBtn = "";
+    monthSelectedOrNot = "год";
     constructor() {
         makeAutoObservable(this, {
             changePage: action, // Явно указываем, что это действие
@@ -21,6 +22,9 @@ class Review {
     changeStyleBtn(event) {
         this.styleBtn = event;
         console.log(this.styleBtn);
+    }
+    chnageMonthSelectedOrNot(state) {
+        this.monthSelectedOrNot = state;
     }
     userApi(user) {
         let urlObj = this.url;

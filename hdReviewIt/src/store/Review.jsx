@@ -9,12 +9,16 @@ class Review {
     currentPage = 1; // начальная страница
     resetBtn = "";
     selectedUser = 1;
+    monthSelectedOrNot = "год";
 
     constructor() {
         makeAutoObservable(this, {
             changePage: action, // Явно указываем, что это действие
             updateUrlWithPage: action, // Явно указываем, что это действие
         });
+    }
+    chnageMonthSelectedOrNot(state) {
+        this.monthSelectedOrNot = state;
     }
     changeSelectedUser(id) {
         this.selectedUser = id;

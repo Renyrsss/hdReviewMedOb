@@ -30,7 +30,8 @@ const MonthButtons = ({ onMonthChange }) => {
         months[1].days = 29;
     }
 
-    const handleMonthClick = (index) => {
+    const handleMonthClick = (index, month) => {
+        Review.chnageMonthSelectedOrNot(month.name);
         Review.resetBtnFunc(true);
         const startOfMonth = new Date(currentYear, index, 1).toISOString();
         const endOfMonth = new Date(
@@ -52,7 +53,7 @@ const MonthButtons = ({ onMonthChange }) => {
                 <button
                     key={index}
                     className="btn"
-                    onClick={() => handleMonthClick(index)}
+                    onClick={() => handleMonthClick(index, month)}
                     style={{
                         backgroundColor: Review.resetBtn
                             ? selectedMonth === index

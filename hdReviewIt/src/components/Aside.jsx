@@ -47,6 +47,7 @@ const Aside = observer(() => {
                         // Review.userApi("Дмитрий");
                         Review.changeSelectedUser(1);
                         Review.resetBtnFunc(false);
+                        Review.chnageMonthSelectedOrNot("год");
                         Review.changeUrl(
                             "http://192.168.101.25:1337/api/skud-zaprosy-help-desks?sort=id:DESC&filters[$and][0][Progress][$eq]=Сделано"
                         );
@@ -63,6 +64,7 @@ const Aside = observer(() => {
                         // Review.userApi("Саид");
                         Review.changeSelectedUser(2);
                         Review.resetBtnFunc(false);
+                        Review.chnageMonthSelectedOrNot("год");
                         Review.changeUrl(
                             "http://192.168.101.25:1337/api/saids?sort=id:DESC&filters[$and][0][Progress][$eq]=Сделано"
                         );
@@ -80,6 +82,7 @@ const Aside = observer(() => {
                         // Review.userApi("Дмитрий");
                         Review.changeSelectedUser(3);
                         Review.resetBtnFunc(false);
+                        Review.chnageMonthSelectedOrNot("год");
                         Review.changeUrl(
                             "http://192.168.101.25:1337/api/bahadors?sort=id:DESC&filters[$and][0][Progress][$eq]=Сделано"
                         );
@@ -96,6 +99,7 @@ const Aside = observer(() => {
                         // Review.userApi("Дмитрий");
                         Review.changeSelectedUser(4);
                         Review.resetBtnFunc(false);
+                        Review.chnageMonthSelectedOrNot("год");
                         Review.changeUrl(
                             "http://192.168.101.25:1337/api/ernar-and-timurs?sort=id:DESC&filters[updatedBy][id][$eq]=3&filters[$and][0][Progress][$eq]=Сделано"
                         );
@@ -111,6 +115,7 @@ const Aside = observer(() => {
                     onClick={() => {
                         // Review.userApi("Дмитрий");
                         Review.changeSelectedUser(5);
+                        Review.chnageMonthSelectedOrNot("год");
                         Review.resetBtnFunc(false);
                         Review.changeUrl(
                             "http://192.168.101.25:1337/api/ernar-and-timurs?sort=id:DESC&filters[updatedBy][id][$eq]=7&filters[$and][0][Progress][$eq]=Сделано"
