@@ -137,7 +137,7 @@ const Aside = observer(() => {
                         Review.resetBtnFunc(false);
 
                         Review.changeUrl(
-                            "http://192.168.101.25:1337/api/ernar-and-timurs?sort=id:DESC&filters[updatedBy][id][$eq]=7&filters[$and][0][Progress][$eq]=Сделано"
+                            "http://192.168.101.25:1337/api/aidars?sort=id:DESC&filters[$and][0][Progress][$eq]=Сделано"
                         );
                     }}
                 >
