@@ -37,6 +37,7 @@ const Aside = observer(() => {
                     selected={selected === 1}
                     onClick={() => {
                         Review.userApi("все");
+                        Review.chnageMonthSelectedOrNot("год");
                         Review.changeStyleBtn(false);
                         setSelectedItem(1);
                     }}
