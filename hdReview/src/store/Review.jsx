@@ -137,8 +137,12 @@ class Review {
             "Номер пользователя": item.attributes.userPhone,
             Отдел: item.attributes.userSide,
             "Комментарий пользователя": item.attributes.userComment,
-            "Дата создания": item.attributes.createdAt,
-            "Дата обновления": item.attributes.updatedAt,
+            "Дата создания": new Date(
+                item.attributes.createdAt
+            ).toLocaleString(),
+            "Дата обновления": new Date(
+                item.attributes.updatedAt
+            ).toLocaleString(),
             Прогресс: item.attributes.Progress,
             "Сделано за ": this.calculateWorkingTime(
                 item.attributes.createdAt,
