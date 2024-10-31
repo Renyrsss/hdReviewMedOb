@@ -117,6 +117,7 @@ const Aside = observer(() => {
                         Review.changeSelectedUser(5);
                         Review.chnageMonthSelectedOrNot("год");
                         Review.resetBtnFunc(false);
+
                         Review.changeUrl(
                             "http://192.168.101.25:1337/api/ernar-and-timurs?sort=id:DESC&filters[updatedBy][id][$eq]=7&filters[$and][0][Progress][$eq]=Сделано"
                         );
@@ -126,6 +127,24 @@ const Aside = observer(() => {
                         <UserCircleIcon className="h-5 w-5" />
                     </ListItemPrefix>
                     Жандос
+                </ListItem>
+                <ListItem
+                    selected={Review.selectedUser === 6}
+                    onClick={() => {
+                        // Review.userApi("Дмитрий");
+                        Review.changeSelectedUser(6);
+                        Review.chnageMonthSelectedOrNot("год");
+                        Review.resetBtnFunc(false);
+
+                        Review.changeUrl(
+                            "http://192.168.101.25:1337/api/ernar-and-timurs?sort=id:DESC&filters[updatedBy][id][$eq]=7&filters[$and][0][Progress][$eq]=Сделано"
+                        );
+                    }}
+                >
+                    <ListItemPrefix>
+                        <UserCircleIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    Айдар
                 </ListItem>
             </List>
         </Card>

@@ -28,6 +28,9 @@ class Review {
     }
     resetBtnFunc(btnStatus) {
         this.resetBtn = btnStatus;
+        if (btnStatus == "год") {
+            this.currentPage = 1;
+        }
     }
     userApi(user) {
         let urlObj = this.url;
@@ -161,7 +164,8 @@ class Review {
         ]; // Конвертация данных в лист Excel
         const workbook = XLSX.utils.book_new(); // Создание новой книги
         XLSX.utils.book_append_sheet(workbook, worksheet, "Отчет"); // Добавление листа в книгу
-        XLSX.writeFile(workbook, "HelpDesk_Report.xlsx"); // Сохранение файла
+        XLSX.writeFile(workbook, "HelpDesk_Report.xlsx");
+        this.currentPage = 1; // Сохранение файла
     }
 }
 
