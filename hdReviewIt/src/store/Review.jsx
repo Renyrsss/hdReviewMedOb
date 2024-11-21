@@ -2,8 +2,7 @@ import { makeAutoObservable, action } from "mobx";
 import axios from "axios";
 import * as XLSX from "xlsx";
 class Review {
-    url =
-        "http://192.168.101.25:1337/api/skud-zaprosy-help-desks?sort=id:DESC&filters[$and][0][Progress][$eq]=Сделано";
+    url = "http://192.168.101.25:1337/api/skud-zaprosy-help-desks?sort=id:DESC";
     count = 0;
     vadim = "";
     currentPage = 1; // начальная страница
@@ -136,7 +135,9 @@ class Review {
     exportToExcel() {
         const transformedData = this.data.map((item) => ({
             ticket: item.id,
-            Исполнитель: item.attributes.updatedBy.data.attributes.firstname,
+            Исполнитель: item.attributes.updatedBy.data
+                ? item.attributes.updatedBy.data.attributes.firstname
+                : "N/A",
             "Имя пользователя": item.attributes.userName,
             "Номер пользователя": item.attributes.userPhone,
             Отдел: item.attributes.userSide,
@@ -148,7 +149,7 @@ class Review {
                 item.attributes.updatedAt
             ).toLocaleString(),
             Прогресс: item.attributes.Progress,
-            "Сделано за ": this.calculateWorkingTime(
+            "Время изменения заявки": this.calculateWorkingTime(
                 item.attributes.createdAt,
                 item.attributes.updatedAt
             ),

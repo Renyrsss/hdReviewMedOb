@@ -24,13 +24,13 @@ const Aside = observer(() => {
     const vadim = "&filters[$and][0][executor][$containsi]=Вадим";
 
     return (
-        <Card className="h-[calc(100vh-2rem)] sticky top-0 w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5  ">
-            <div className="mb-2 p-4">
-                <Typography variant="h5" color="blue-gray">
+        <Card className='h-[calc(100vh-2rem)] sticky top-0 w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5  '>
+            <div className='mb-2 p-4'>
+                <Typography variant='h5' color='blue-gray'>
                     Дэшборд
                 </Typography>
             </div>
-            <List className=" flex flex-col">
+            <List className=' flex flex-col'>
                 {/* <ListItem
                     onClick={() => {
                         Review.userApi("все");
@@ -51,10 +51,9 @@ const Aside = observer(() => {
                         Review.changeUrl(
                             "http://192.168.101.25:1337/api/skud-zaprosy-help-desks?sort=id:DESC&filters[$and][0][Progress][$eq]=Сделано"
                         );
-                    }}
-                >
+                    }}>
                     <ListItemPrefix>
-                        <UserCircleIcon className="h-5 w-5" />
+                        <UserCircleIcon className='h-5 w-5' />
                     </ListItemPrefix>
                     Куат
                 </ListItem>
@@ -66,12 +65,11 @@ const Aside = observer(() => {
                         Review.resetBtnFunc(false);
                         Review.chnageMonthSelectedOrNot("год");
                         Review.changeUrl(
-                            "http://192.168.101.25:1337/api/saids?sort=id:DESC&filters[$and][0][Progress][$eq]=Сделано"
+                            "http://192.168.101.25:1337/api/saids?sort=id:DESC"
                         );
-                    }}
-                >
+                    }}>
                     <ListItemPrefix>
-                        <UserCircleIcon className="h-5 w-5" />
+                        <UserCircleIcon className='h-5 w-5' />
                     </ListItemPrefix>
                     Саид
                 </ListItem>
@@ -84,12 +82,11 @@ const Aside = observer(() => {
                         Review.resetBtnFunc(false);
                         Review.chnageMonthSelectedOrNot("год");
                         Review.changeUrl(
-                            "http://192.168.101.25:1337/api/bahadors?sort=id:DESC&filters[$and][0][Progress][$eq]=Сделано"
+                            "http://192.168.101.25:1337/api/bahadors?sort=id:DESC"
                         );
-                    }}
-                >
+                    }}>
                     <ListItemPrefix>
-                        <UserCircleIcon className="h-5 w-5" />
+                        <UserCircleIcon className='h-5 w-5' />
                     </ListItemPrefix>
                     Баходыр
                 </ListItem>
@@ -101,12 +98,11 @@ const Aside = observer(() => {
                         Review.resetBtnFunc(false);
                         Review.chnageMonthSelectedOrNot("год");
                         Review.changeUrl(
-                            "http://192.168.101.25:1337/api/ernar-and-timurs?sort=id:DESC&filters[updatedBy][id][$eq]=3&filters[$and][0][Progress][$eq]=Сделано"
+                            "http://192.168.101.25:1337/api/ernar-and-timurs?sort=id:DESC&filters[updatedBy][id][$eq]=3"
                         );
-                    }}
-                >
+                    }}>
                     <ListItemPrefix>
-                        <UserCircleIcon className="h-5 w-5" />
+                        <UserCircleIcon className='h-5 w-5' />
                     </ListItemPrefix>
                     Ернар
                 </ListItem>
@@ -119,12 +115,11 @@ const Aside = observer(() => {
                         Review.resetBtnFunc(false);
 
                         Review.changeUrl(
-                            "http://192.168.101.25:1337/api/ernar-and-timurs?sort=id:DESC&filters[updatedBy][id][$eq]=7&filters[$and][0][Progress][$eq]=Сделано"
+                            "http://192.168.101.25:1337/api/ernar-and-timurs?sort=id:DESC&filters[updatedBy][id][$eq]=7"
                         );
-                    }}
-                >
+                    }}>
                     <ListItemPrefix>
-                        <UserCircleIcon className="h-5 w-5" />
+                        <UserCircleIcon className='h-5 w-5' />
                     </ListItemPrefix>
                     Жандос
                 </ListItem>
@@ -139,11 +134,10 @@ const Aside = observer(() => {
                         Review.changeUrl(
                             "http://192.168.101.25:1337/api/aidars?sort=id:DESC&filters[$and][0][Progress][$eq]=Сделано"
                         );
-                    }}
-                >
+                    }}>
                     <ListItemPrefix>
                         {/* hello */}
-                        <UserCircleIcon className="h-5 w-5" />
+                        <UserCircleIcon className='h-5 w-5' />
                     </ListItemPrefix>
                     Айдар
                 </ListItem>

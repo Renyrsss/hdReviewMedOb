@@ -283,59 +283,56 @@ const Table = observer(() => {
     console.log(pagination);
 
     return (
-        <Card className="h-full w-full">
-            <CardHeader floated={false} shadow={false} className="rounded-none">
-                <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
+        <Card className='h-full w-full'>
+            <CardHeader floated={false} shadow={false} className='rounded-none'>
+                <div className='mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center'>
                     <div>
-                        <Typography variant="h5" color="blue-gray">
+                        <Typography variant='h5' color='blue-gray'>
                             Отчет за {Review.monthSelectedOrNot}
                         </Typography>
-                        <Typography color="gray" className="mt-1 font-normal">
-                            всего выполено - {pagination.total} шт
+                        <Typography color='gray' className='mt-1 font-normal'>
+                            всего заявок - {pagination.total} шт
                         </Typography>
                     </div>
-                    <div className="flex w-full shrink-0 gap-2 md:w-max">
-                        <div className="w-full md:w-72">
+                    <div className='flex w-full shrink-0 gap-2 md:w-max'>
+                        <div className='w-full md:w-72'>
                             <Input
-                                label="Поиск"
+                                label='Поиск'
                                 icon={
-                                    <MagnifyingGlassIcon className="h-5 w-5" />
+                                    <MagnifyingGlassIcon className='h-5 w-5' />
                                 }
                             />
                         </div>
                         <Button
-                            className="flex items-center gap-3"
-                            size="sm"
-                            onClick={handleExport}
-                        >
+                            className='flex items-center gap-3'
+                            size='sm'
+                            onClick={handleExport}>
                             <ArrowDownTrayIcon
                                 strokeWidth={2}
-                                className="h-4 w-4"
+                                className='h-4 w-4'
                             />{" "}
                             Скачать отчет
                         </Button>
                     </div>
                 </div>
                 <div>
-                    <Typography color="gray" className="mt-1 font-normal">
+                    <Typography color='gray' className='mt-1 font-normal'>
                         <MonthButtons onMonthChange={fetchDataForMonth} />
                     </Typography>
                 </div>
             </CardHeader>
-            <CardBody className="overflow-scroll px-0">
-                <table className="w-full min-w-max table-auto text-left">
+            <CardBody className='overflow-scroll px-0'>
+                <table className='w-full min-w-max table-auto text-left'>
                     <thead>
                         <tr>
                             {TABLE_HEAD.map((head) => (
                                 <th
                                     key={head}
-                                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
-                                >
+                                    className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-4'>
                                     <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="font-normal leading-none opacity-70"
-                                    >
+                                        variant='small'
+                                        color='blue-gray'
+                                        className='font-normal leading-none opacity-70'>
                                         {head}
                                     </Typography>
                                 </th>
@@ -357,6 +354,7 @@ const Table = observer(() => {
                                 updatedAt,
                                 updatedBy,
                             } = item.attributes;
+                            console.log(item.attributes);
                             const classes = isLast
                                 ? "p-4"
                                 : "p-4 border-b border-blue-gray-50";
@@ -364,15 +362,13 @@ const Table = observer(() => {
                             return (
                                 <tr
                                     key={item.id}
-                                    onClick={() => handleOpen(item.id)}
-                                >
+                                    onClick={() => handleOpen(item.id)}>
                                     <td className={classes}>
-                                        <div className="flex items-center gap-3">
+                                        <div className='flex items-center gap-3'>
                                             <Typography
-                                                variant="small"
-                                                color="blue-gray"
-                                                className="font-bold ml-4 nameSide"
-                                            >
+                                                variant='small'
+                                                color='blue-gray'
+                                                className='font-bold ml-4 nameSide'>
                                                 {userName}
                                             </Typography>
                                         </div>
@@ -380,19 +376,17 @@ const Table = observer(() => {
 
                                     <td className={classes}>
                                         <Typography
-                                            variant="small"
-                                            color="blue-gray"
-                                            className="font-normal"
-                                        >
+                                            variant='small'
+                                            color='blue-gray'
+                                            className='font-normal'>
                                             {userPhone}
                                         </Typography>
                                     </td>
                                     <td className={classes}>
                                         <Typography
-                                            variant="small"
-                                            color="blue-gray"
-                                            className="font-normal"
-                                        >
+                                            variant='small'
+                                            color='blue-gray'
+                                            className='font-normal'>
                                             {createdAt.slice(0, -14)} <br />
                                             {" время: " +
                                                 (+createdAt.slice(11, -11) +
@@ -403,10 +397,9 @@ const Table = observer(() => {
                                     </td>
                                     <td className={classes}>
                                         <Typography
-                                            variant="small"
-                                            color="blue-gray"
-                                            className="font-normal"
-                                        >
+                                            variant='small'
+                                            color='blue-gray'
+                                            className='font-normal'>
                                             {updatedAt.slice(0, -14)} <br />
                                             {" время: " +
                                                 (+updatedAt.slice(11, -11) +
@@ -417,11 +410,11 @@ const Table = observer(() => {
                                     </td>
 
                                     <td className={classes}>
-                                        <div className="w-max">
+                                        <div className='w-max'>
                                             <Chip
-                                                size="sm"
-                                                className="doneSize"
-                                                variant="ghost"
+                                                size='sm'
+                                                className='doneSize'
+                                                variant='ghost'
                                                 value={calculateWorkingTime(
                                                     createdAt,
                                                     updatedAt
@@ -436,13 +429,31 @@ const Table = observer(() => {
                                                 }
                                             />
                                             <Chip
-                                                size="sm"
-                                                className="doneSize"
-                                                variant="ghost"
+                                                size='sm'
+                                                className='doneSize'
+                                                variant='ghost'
+                                                value={item.attributes.Progress}
+                                                color={
+                                                    Progress === "Сделано"
+                                                        ? "green"
+                                                        : Progress ===
+                                                          "в работе"
+                                                        ? "amber"
+                                                        : "red"
+                                                }
+                                            />
+                                            <Chip
+                                                size='sm'
+                                                className='doneSize'
+                                                variant='ghost'
                                                 value={
                                                     item.attributes.updatedBy
-                                                        .data.attributes
-                                                        .firstname
+                                                        .data
+                                                        ? item.attributes
+                                                              .updatedBy.data
+                                                              .attributes
+                                                              .firstname
+                                                        : "N/A"
                                                 }
                                                 color={
                                                     Progress === "Сделано"
@@ -462,11 +473,11 @@ const Table = observer(() => {
                 </table>
             </CardBody>
 
-            <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+            <CardFooter className='flex items-center justify-between border-t border-blue-gray-50 p-4'>
                 {/* <Button variant="outlined" size="sm">
                     Previous
                 </Button> */}
-                <div className="flex items-center gap-2">
+                <div className='flex items-center gap-2'>
                     <Pagination
                         pageCount={pagination.pageCount}
                         currentPage={Review.currentPage}
