@@ -449,7 +449,7 @@ const Table = observer(() => {
                                                 value={
                                                     item.attributes.updatedBy
                                                         .data
-                                                        ? item.attпributes
+                                                        ? item.attributes
                                                               .updatedBy.data
                                                               .attributes
                                                               .firstname
