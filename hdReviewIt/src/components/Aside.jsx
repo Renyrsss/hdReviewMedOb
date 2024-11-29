@@ -49,7 +49,7 @@ const Aside = observer(() => {
                         Review.resetBtnFunc(false);
                         Review.chnageMonthSelectedOrNot("год");
                         Review.changeUrl(
-                            "http://192.168.101.25:1337/api/skud-zaprosy-help-desks?sort=id:DESC&filters[$and][0][Progress][$eq]=Сделано"
+                            "http://192.168.101.25:1337/api/skud-zaprosy-help-desks?sort=id:DESC"
                         );
                     }}>
                     <ListItemPrefix>
@@ -140,6 +140,24 @@ const Aside = observer(() => {
                         <UserCircleIcon className='h-5 w-5' />
                     </ListItemPrefix>
                     Айдар
+                </ListItem>
+                <ListItem
+                    selected={Review.selectedUser === 7}
+                    onClick={() => {
+                        // Review.userApi("Дмитрий");
+                        Review.changeSelectedUser(7);
+                        Review.chnageMonthSelectedOrNot("год");
+                        Review.resetBtnFunc(false);
+
+                        Review.changeUrl(
+                            "http://192.168.101.25:1337/api/rustams?sort=id:DESC&filters[$and][0][Progress][$eq]=Сделано"
+                        );
+                    }}>
+                    <ListItemPrefix>
+                        {/* hello */}
+                        <UserCircleIcon className='h-5 w-5' />
+                    </ListItemPrefix>
+                    Рустам
                 </ListItem>
             </List>
         </Card>
