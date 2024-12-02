@@ -148,6 +148,7 @@ class Review {
             "Дата обновления": new Date(
                 item.attributes.updatedAt
             ).toLocaleString(),
+            Категория: item.attributes.complexity,
             Прогресс: item.attributes.Progress,
             "Время изменения заявки": this.calculateWorkingTime(
                 item.attributes.createdAt,
