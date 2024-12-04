@@ -96,6 +96,14 @@ class Review {
         const response = await axios.get(this.url);
         return response.data;
     }
+    totalMinutes = (createdAt, closedAt) => {
+        const startDay = new Date(createdAt);
+        const endDay = new Date(closedAt);
+        if (endDay <= startDay) return "0 дней 0 часов 0 минут";
+        const diffInMilliseconds = endDay - startDay;
+        const totalMinutes = Math.floor(diffInMilliseconds / 60000);
+        return totalMinutes;
+    };
     calculateWorkingTime = (createdAt, closedAt) => {
         // return `${days} дней ${hours} часов ${minutes} минут`;
         const startDay = new Date(createdAt);
@@ -133,28 +141,81 @@ class Review {
 
     // Метод для экспорта данных в Excel
     exportToExcel() {
-        const transformedData = this.data.map((item) => ({
-            ticket: item.id,
-            Исполнитель: item.attributes.updatedBy.data
-                ? item.attributes.updatedBy.data.attributes.firstname
-                : "N/A",
-            "Имя пользователя": item.attributes.userName,
-            "Номер пользователя": item.attributes.userPhone,
-            Отдел: item.attributes.userSide,
-            "Комментарий пользователя": item.attributes.userComment,
-            "Дата создания": new Date(
-                item.attributes.createdAt
-            ).toLocaleString(),
-            "Дата обновления": new Date(
-                item.attributes.updatedAt
-            ).toLocaleString(),
-            Категория: item.attributes.complexity,
-            Прогресс: item.attributes.Progress,
-            "Время изменения заявки": this.calculateWorkingTime(
+        const transformedData = this.data.map((item) => {
+            console.log(item.attributes.complexity);
+
+            const complexity = [
+                {
+                    value: "a",
+                    time: 180,
+                },
+                {
+                    value: "b",
+                    time: 1440,
+                },
+                {
+                    value: "c",
+                    time: 2880,
+                },
+            ];
+            const totalMinutes = this.totalMinutes(
                 item.attributes.createdAt,
                 item.attributes.updatedAt
-            ),
-        }));
+            );
+            let isItCurrect;
+            if (item.attributes.Progress === "Сделано") {
+                if (item.attributes.complexity == "A") {
+                    isItCurrect = totalMinutes - complexity[0].time;
+                    if (isItCurrect >= 0) {
+                        isItCurrect = "НЕТ";
+                    } else {
+                        isItCurrect = "ДА";
+                    }
+                    console.log(isItCurrect);
+                } else if (item.attributes.complexity == "B") {
+                    isItCurrect = totalMinutes - complexity[1].time;
+                    if (isItCurrect >= 0) {
+                        isItCurrect = "НЕТ";
+                    } else {
+                        isItCurrect = "ДА";
+                    }
+                    console.log(isItCurrect);
+                } else if (item.attributes.complexity == "C") {
+                    isItCurrect = totalMinutes - complexity[2].time;
+                    if (isItCurrect >= 0) {
+                        isItCurrect = "НЕТ";
+                    } else {
+                        isItCurrect = "ДА";
+                    }
+                    console.log(isItCurrect);
+                }
+            } else {
+                isItCurrect = item.attributes.Progress;
+            }
+            return {
+                ticket: item.id,
+                Исполнитель: item.attributes.updatedBy.data
+                    ? item.attributes.updatedBy.data.attributes.firstname
+                    : "N/A",
+                "Имя пользователя": item.attributes.userName,
+                "Номер пользователя": item.attributes.userPhone,
+                Отдел: item.attributes.userSide,
+                "Комментарий пользователя": item.attributes.userComment,
+                "Дата создания": new Date(
+                    item.attributes.createdAt
+                ).toLocaleString(),
+                "Дата обновления": new Date(
+                    item.attributes.updatedAt
+                ).toLocaleString(),
+                Категория: item.attributes.complexity,
+                Прогресс: item.attributes.Progress,
+                "Время изменения заявки": this.calculateWorkingTime(
+                    item.attributes.createdAt,
+                    item.attributes.updatedAt
+                ),
+                "Достигнута задача": isItCurrect,
+            };
+        });
         const worksheet = XLSX.utils.json_to_sheet(transformedData);
         worksheet["!cols"] = [
             { wch: 10 }, // ширина для столбца 'ticket'
@@ -166,6 +227,8 @@ class Review {
             { wch: 20 },
             { wch: 20 },
             { wch: 20 },
+            { wch: 30 },
+            { wch: 30 },
             { wch: 30 }, // ширина для столбца 'closedAt'
         ]; // Конвертация данных в лист Excel
         const workbook = XLSX.utils.book_new(); // Создание новой книги
