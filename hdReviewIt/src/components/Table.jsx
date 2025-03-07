@@ -127,6 +127,7 @@ const Table = observer(() => {
     let [currentPage, setCurrentPage] = useState(1);
     const [finalHRS, setfinalHRS] = useState("");
     const [data, setData] = useState([]);
+    const [sortedData, setSortedData] = useState([]);
     const [pagination, setPagination] = useState([]);
     let [userData, setUserdata] = useState({});
     const [elements, setElements] = useState([null]);
@@ -180,11 +181,18 @@ const Table = observer(() => {
     useEffect(() => {
         let data = axios.get(currentUrl).then((res) => {
             setData([]);
-            setData(res.data.data);
+            console.log(res.data.data.attributes);
+            function isNonCorrect(value) {
+                return value.trim() != "некорректная заявка";
+            }
+            const withCountNonCorrect = res.data.data.filter((item) => {
+                return isNonCorrect(item.attributes.Progress);
+            });
+            setData(withCountNonCorrect);
             // setElements(Math.ceil(res.data.data / 25));
             setPagination(res.data.meta.pagination);
             // paginationPages();
-            return res.data.data;
+            return withCountNonCorrect;
         });
     }, [Review.url]);
 
@@ -223,54 +231,6 @@ const Table = observer(() => {
 
         return `${hours}:${remainingMinutes} `;
     }
-
-    const transformDataForExport = () => {
-        return data.map((item) => {
-            const itemCreateHours = getFullHours(item.attributes.createdAt);
-            const itemUpdateHours = getFullHours(item.attributes.updatedAt);
-            const dateOfExcelCreate = getFullDate(item.attributes.createdAt);
-            const dateOfExcelUpdate = getFullDate(item.attributes.updatedAt);
-            console.log(item);
-
-            const itemDete = getFullHours(item.attributes.createdAt);
-            return {
-                ticket: item.id,
-                Испольнитель: item.attributes.executor,
-                "имя пользователя": item.attributes.userName, // Достаем имя из вложенного объекта
-                "номер пользователя": item.attributes.userPhone,
-                Отдел: item.attributes.userSide,
-                "комментарий пользователя": item.attributes.userComment,
-                "Дата создания": `${dateOfExcelCreate} \n ${itemCreateHours[0]} : ${itemCreateHours[1]}`,
-                "Дата обновления": `${dateOfExcelUpdate} \n ${itemUpdateHours[0]} : ${itemUpdateHours[1]}`,
-                Прогресс: item.attributes.Progress, // Достаем позицию
-                "Сделано за ": calculateWorkingTime(
-                    item.attributes.createdAt,
-                    item.attributes.updatedAt
-                ),
-
-                // closedAt: item.attributes ? item.attributes : "N/A", // Обработка null значений
-            };
-        });
-    };
-    const exportToExcel = () => {
-        const transformedData = transformDataForExport();
-        const worksheet = XLSX.utils.json_to_sheet(transformedData);
-        worksheet["!cols"] = [
-            { wch: 10 }, // ширина для столбца 'ticket'
-            { wch: 20 }, // ширина для столбца 'assigneeName'
-            { wch: 20 }, // ширина для столбца 'assigneePosition'
-            { wch: 20 }, // ширина для столбца 'status'
-            { wch: 35 }, // ширина для столбца 'createdAt'
-            { wch: 20 },
-            { wch: 20 },
-            { wch: 20 },
-            { wch: 20 },
-            { wch: 30 }, // ширина для столбца 'closedAt'
-        ]; // Конвертация данных в лист Excel
-        const workbook = XLSX.utils.book_new(); // Создание новой книги
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Отчет"); // Добавление листа в книгу
-        XLSX.writeFile(workbook, "HelpDesk_Report.xlsx"); // Сохранение файла
-    };
 
     function changeOpener(status) {
         console.log(status);
@@ -354,12 +314,13 @@ const Table = observer(() => {
                                 updatedAt,
                                 updatedBy,
                             } = item.attributes;
-                            {
-                                /* console.log(item.attributes); */
-                            }
+
                             const classes = isLast
                                 ? "p-4"
                                 : "p-4 border-b border-blue-gray-50";
+                            {
+                                /* console.log(Progress); */
+                            }
 
                             return (
                                 <tr
