@@ -354,7 +354,9 @@ const Table = observer(() => {
                                 updatedAt,
                                 updatedBy,
                             } = item.attributes;
-                            console.log(item.attributes);
+                            {
+                                /* console.log(item.attributes); */
+                            }
                             const classes = isLast
                                 ? "p-4"
                                 : "p-4 border-b border-blue-gray-50";

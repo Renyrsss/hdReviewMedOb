@@ -141,8 +141,24 @@ class Review {
 
     // Метод для экспорта данных в Excel
     exportToExcel() {
-        const transformedData = this.data.map((item) => {
-            console.log(item.attributes.complexity);
+        // const withCountNonCorrect = this.data.map((item) => {
+        //     if (item.attributes.Progress.trim() !== "некорректная заявка") {
+        //         // console.log(item.attributes.Progress.trim());
+
+        //         return item;
+        //     }
+
+        // });
+        function isNonCorrect(value) {
+            return value.trim() != "некорректная заявка";
+        }
+        const withCountNonCorrect = this.data.filter((item) => {
+            return isNonCorrect(item.attributes.Progress);
+        });
+        console.log(withCountNonCorrect);
+
+        const transformedData = withCountNonCorrect.map((item) => {
+            // console.log(item.attributes.Progress);
 
             const complexity = [
                 {
@@ -179,7 +195,7 @@ class Review {
                     } else {
                         isItCurrect = "ДА";
                     }
-                    console.log(isItCurrect);
+                    // console.log(isItCurrect);
                 } else if (item.attributes.complexity == "C") {
                     isItCurrect = totalMinutes - complexity[2].time;
                     if (isItCurrect >= 0) {
@@ -187,11 +203,12 @@ class Review {
                     } else {
                         isItCurrect = "ДА";
                     }
-                    console.log(isItCurrect);
+                    // console.log(isItCurrect);
                 }
             } else {
                 isItCurrect = item.attributes.Progress;
             }
+
             return {
                 ticket: item.id,
                 Исполнитель: item.attributes.updatedBy.data
@@ -216,6 +233,7 @@ class Review {
                 "Достигнута задача": isItCurrect,
             };
         });
+
         const worksheet = XLSX.utils.json_to_sheet(transformedData);
         worksheet["!cols"] = [
             { wch: 10 }, // ширина для столбца 'ticket'
@@ -233,7 +251,10 @@ class Review {
         ]; // Конвертация данных в лист Excel
         const workbook = XLSX.utils.book_new(); // Создание новой книги
         XLSX.utils.book_append_sheet(workbook, worksheet, "Отчет"); // Добавление листа в книгу
-        XLSX.writeFile(workbook, "HelpDesk_Report.xlsx");
+        XLSX.writeFile(
+            workbook,
+            `${transformedData[0]["Исполнитель"]}_HelpDesk_kpi_отчет.xlsx`
+        );
         this.currentPage = 1; // Сохранение файла
     }
 }
