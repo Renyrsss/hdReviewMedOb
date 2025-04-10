@@ -26,49 +26,53 @@ export function Modal(props) {
                                 : props.userData.attributes.userName}
                         </DialogHeader>
                         <DialogBody>
-                            Жалоба -{" "}
+                            {" "}
+                            <span className='font-bold'>Заявка</span> -{" "}
+                            {props.userData.attributes.userQuery
+                                ? props.userData.attributes.userQuery
+                                : ""}
+                        </DialogBody>
+                        <DialogBody>
+                            <span className='font-bold'>Описание</span> -{" "}
                             {props.userData
                                 ? props.userData.attributes.userComment
                                 : ""}
                         </DialogBody>
                         <DialogBody>
                             {" "}
-                            Номер пользователя -{" "}
+                            <span className='font-bold'>
+                                Номер пользователя
+                            </span>{" "}
+                            -{" "}
                             {props.userData
                                 ? props.userData.attributes.userPhone
                                 : ""}
                         </DialogBody>
                         <DialogBody>
                             {" "}
-                            Статус -{" "}
+                            <span className='font-bold'>Статус</span> -{" "}
                             {props.userData
                                 ? props.userData.attributes.Progress
                                 : ""}
                         </DialogBody>
                         <DialogBody>
                             {" "}
-                            Испольнитель -{" "}
-                            {props.userData
-                                ? props.userData.attributes.executor
-                                : ""}
+                            <span className='font-bold'>
+                                Комментарий исполнителя
+                            </span>{" "}
+                            -{" "}
+                            {props.userData.attributes.outComment
+                                ? props.userData.attributes.outComment
+                                : "не заполнен"}
                         </DialogBody>
                     </>
                 )}
                 <DialogFooter>
                     <Button
-                        variant="text"
-                        color="red"
-                        onClick={() => props.changeOpener(!props.open)}
-                        className="mr-1"
-                    >
-                        <span>Cancel</span>
-                    </Button>
-                    <Button
-                        variant="gradient"
-                        color="green"
-                        onClick={() => props.changeOpener(!props.open)}
-                    >
-                        <span>Confirm</span>
+                        variant='gradient'
+                        color='green'
+                        onClick={() => props.changeOpener(!props.open)}>
+                        <span>Закрыть</span>
                     </Button>
                 </DialogFooter>
             </Dialog>

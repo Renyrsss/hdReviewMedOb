@@ -52,7 +52,7 @@ const MonthButtons = ({ onMonthChange }) => {
             {months.map((month, index) => (
                 <button
                     key={index}
-                    className="btn"
+                    className='btn'
                     onClick={() => handleMonthClick(index, month)}
                     style={{
                         backgroundColor: Review.resetBtn
@@ -60,8 +60,7 @@ const MonthButtons = ({ onMonthChange }) => {
                                 ? "lightblue"
                                 : "white"
                             : "",
-                    }}
-                >
+                    }}>
                     {month.name}
                 </button>
             ))}

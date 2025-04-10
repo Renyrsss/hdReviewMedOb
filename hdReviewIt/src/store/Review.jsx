@@ -8,7 +8,7 @@ class Review {
     currentPage = 1; // начальная страница
     resetBtn = "";
     selectedUser = 1;
-    monthSelectedOrNot = "год";
+    monthSelectedOrNot = "весь период";
 
     constructor() {
         makeAutoObservable(this, {
@@ -31,43 +31,7 @@ class Review {
             this.currentPage = 1;
         }
     }
-    userApi(user) {
-        let urlObj = this.url;
-        if (user === "Саид") {
-            if (
-                !urlObj.includes("&filters[$and][0][executor][$containsi]=Саид")
-            ) {
-                // Удаляем Дмитрия, если он присутствует
-                // urlObj = urlObj
-                //     .split("&filters[$and][0][executor][$containsi]=Дмитрий")
-                //     .join("");
-                // Добавляем Вадима
-                urlObj += "&filters[$and][0][executor][$containsi]=Саид";
-                this.url = urlObj;
-            }
-        } else if (user === "Дмитрий") {
-            if (
-                !urlObj.includes(
-                    "&filters[$and][0][executor][$containsi]=Дмитрий"
-                )
-            ) {
-                // Удаляем Вадима, если он присутствует
-                urlObj = urlObj
-                    .split("&filters[$and][0][executor][$containsi]=Вадим")
-                    .join("");
-                // Добавляем Дмитрия
-                urlObj += "&filters[$and][0][executor][$containsi]=Дмитрий";
-                this.url = urlObj;
-            }
-        } else if (user === "все") {
-            console.log(user);
-            urlObj =
-                "http://192.168.101.25:1338/api/zayavkis?sort=id:DESC&filters[$and][0][Progress][$eq]=Сделано&pagination[withCount]=true&pagination[pageSize]=1000";
-            this.url = urlObj;
-        }
 
-        console.log(urlObj);
-    }
     // Метод для смены страницы
     changePage(page) {
         this.currentPage = page;
@@ -141,14 +105,6 @@ class Review {
 
     // Метод для экспорта данных в Excel
     exportToExcel() {
-        // const withCountNonCorrect = this.data.map((item) => {
-        //     if (item.attributes.Progress.trim() !== "некорректная заявка") {
-        //         // console.log(item.attributes.Progress.trim());
-
-        //         return item;
-        //     }
-
-        // });
         function isNonCorrect(value) {
             return value.trim() != "некорректная заявка";
         }
@@ -253,7 +209,7 @@ class Review {
         XLSX.utils.book_append_sheet(workbook, worksheet, "Отчет"); // Добавление листа в книгу
         XLSX.writeFile(
             workbook,
-            `${transformedData[0]["Исполнитель"]}_HelpDesk_kpi_отчет.xlsx`
+            `${transformedData[0]["Исполнитель"]}_HelpDesk_kpi_отчет_${this.monthSelectedOrNot}.xlsx`
         );
         this.currentPage = 1; // Сохранение файла
     }
