@@ -57,6 +57,13 @@ export function Modal(props) {
                         </DialogBody>
                         <DialogBody>
                             {" "}
+                            <span className='font-bold'>Категория</span> -{" "}
+                            {props.userData
+                                ? props.userData.attributes.complexity
+                                : ""}
+                        </DialogBody>
+                        <DialogBody>
+                            {" "}
                             <span className='font-bold'>
                                 Комментарий исполнителя
                             </span>{" "}

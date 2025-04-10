@@ -174,6 +174,7 @@ class Review {
                 "Номер пользователя": item.attributes.userPhone,
                 Отдел: item.attributes.userSide,
                 "Комментарий пользователя": item.attributes.userComment,
+                "Комментарий исполнителя": item.attributes.ourComment,
                 "Дата создания": new Date(
                     item.attributes.createdAt
                 ).toLocaleString(),
@@ -197,7 +198,8 @@ class Review {
             { wch: 20 }, // ширина для столбца 'assigneePosition'
             { wch: 20 }, // ширина для столбца 'status'
             { wch: 35 }, // ширина для столбца 'createdAt'
-            { wch: 20 },
+            { wch: 70 },
+            { wch: 70 },
             { wch: 20 },
             { wch: 20 },
             { wch: 20 },
