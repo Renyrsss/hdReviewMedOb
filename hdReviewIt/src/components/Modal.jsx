@@ -68,8 +68,8 @@ export function Modal(props) {
                                 Комментарий исполнителя
                             </span>{" "}
                             -{" "}
-                            {props.userData.attributes.outComment
-                                ? props.userData.attributes.outComment
+                            {props.userData.attributes.ourComment
+                                ? props.userData.attributes.ourComment
                                 : "не заполнен"}
                         </DialogBody>
                     </>
